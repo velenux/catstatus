@@ -1,5 +1,5 @@
 #content
-  %h1 Welcome to Cat Status!
+  %h1 In questo momento, il vostro gatto...
   - @statuses.sort.each do |id, name|
     %a{:href => "/status/add/#{id}"}= name
     %br/
