@@ -1,0 +1,29 @@
+<html lang="it">
+<head>
+<title>Cat status v. <%= @version %></title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+<div id="content">
+
+<% if @messages.count > 0 %>
+  <div id="messages">
+  <% @messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+  </div> <!-- messages -->
+<% end %>
+
+<h1 id="title">In questo momento, il vostro gatto...</h1>
+
+<ul>
+<% @statuses.sort.each do |id, name| %>
+  <li><a href="/status/add/<%= id %>"><%= name %></a></li>
+<% end %>
+</ul>
+
+</div> <!-- content -->
+</body>
+</html>

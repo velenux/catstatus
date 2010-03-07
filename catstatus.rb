@@ -1,9 +1,14 @@
 require 'rubygems'
 require 'sinatra'
-require 'haml'
+require 'erubis'
 require 'sass'
 
-version  = '0.0.1'
+# we'll use that for messages/errors
+enable :sessions
+
+version  = '0.0.2'
+
+# needs l10n, i18n, whatever
 statuses = {
     0 => 'Non è in zona',
     1 => 'Dorme',
@@ -15,15 +20,19 @@ statuses = {
     7 => 'Gioca moderatamente',
     8 => 'Gioca rumorosamente',
     9 => 'Si comporta da pazzo',
-  10 => 'E` Posseduto da forze demoniache'
+   10 => 'E` Posseduto da forze demoniache'
 }
 
 get '/' do
-  #content_type 'text/html', :charset => 'utf-8'
+  # vars for the view
   @statuses = statuses
   @version  = version
-  set :haml, {:format => :html5, :lang => 'it', :charset => 'utf-8' } # default Haml format is :xhtml
-  haml :index
+  # store messages for the view
+  @messages = session['messages'] || []
+  # empty cookie!
+  session['messages'] = []
+  # render view
+  erb :index
 end
 
 get '/style.css' do
@@ -31,13 +40,10 @@ get '/style.css' do
 end
 
 get '/status/add/:status' do
+  timestamp = Time.now
   @statuses = statuses
-  puts "
-[#{Time.now}] 
-il gatto #{@statuses[params[:status].to_i]}
-(valore: #{params[:status]})
-
-"
+  session['messages'] << "#{timestamp}: il gatto #{@statuses[params[:status].to_i]}."
+  #puts "[#{timestamp}]\nil gatto #{@statuses[params[:status].to_i]} (status: #{params[:status]})\n\n"
   redirect '/'
 end
 
