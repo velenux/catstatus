@@ -1,0 +1,25 @@
+Cat Status is a simple Sinatra experiment. Purpose is quite
+simple: to get a database crowded with data about your cat
+status over a time span.
+
+Maybe we'll have fancy charts, too!
+
+As you can see, you need: sinatra, haml and erubis gems, so
+grab your favourite shell and install them (as root/sudo):
+
+# gem install sinatra haml erubis
+
+Then you can start Cat Status:
+
+$ ruby catstatus.rb
+== Sinatra/0.9.5 has taken the stage on 4567 for development with backup from WEBrick
+[2010-03-07 05:35:14] INFO  WEBrick 1.3.1
+[2010-03-07 05:35:14] INFO  ruby 1.8.7 (2010-01-10) [i486-linux]
+[2010-03-07 05:35:19] INFO  WEBrick::HTTPServer#start: pid=3820 port=4567
+
+Then connect with your browser to:
+http://127.0.0.1:4567
+
+And enjoy!
+
+
