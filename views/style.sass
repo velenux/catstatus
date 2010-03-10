@@ -6,6 +6,8 @@
 !tango_green_med  = #73d216
 !tango_green_dark = #4e9a06
 
+!tango_red_med    = #cc0000
+
 body
   font:
     family: FreeSans, Arial, Helvetica, sans-serif
@@ -15,15 +17,22 @@ body
   margin: auto
   width: 960px
 
-#messages
+#messages, #errors
   padding-left: 25px
+
+#messages, #errors
+  p
+    font:
+      family: "Droid Sans Mono", "FreeMono", "Courier New", monospace
+      size: 8pt
 
 #messages
   p
     color = !tango_green_med
-    font:
-      family: "Droid Sans Mono", "FreeMono", "Courier New", monospace
-      size: 8pt
+
+#errors
+  p
+    color = !tango_red_med
 
 h1#title
   font:
