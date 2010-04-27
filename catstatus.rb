@@ -2,10 +2,26 @@ require 'rubygems'
 require 'sinatra'
 require 'erubis'
 require 'sass'
+require 'dm-core'
 
 # we'll use that for messages/errors
 enable :sessions
 version  = '0.0.2'
+
+full_path = "/home/velenux/"
+filename  = "catstatus-db-#{Time.now.to_i}.sqlite"
+
+DataMapper.setup(:default, "sqlite3://#{full_path}#{filename}")
+
+class StatusEntry
+  include DataMapper::Resource
+
+  property :id,         Serial
+  property :status,     Integer
+  property :timestamp,  DateTime
+end
+
+DataMapper.auto_migrate!
 
 # we'll move that in a lib maybe!
 class Status
@@ -54,8 +70,15 @@ class Status
   end
   
   def save # stub
-    puts "\n\nSaving... at #{@timestamp} the cat #{@@statuses[@status]}\n\n"
-    true
+    se = StatusEntry.new(:status => @status, :timestamp => @timestamp)
+
+    if se.save
+      puts "StatusEntry #{se} saved!"
+      true
+    else
+      false
+    end
+    
   end
   
   def verbose_status
